@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>枫树四季 | 真实照片 + 飘落叶子效果</title>
+    <meta
+      name="description"
+      content="真实枫树四季页面。根据季节更替切换树与叶子的真实照片，并呈现随风飘落的枫叶效果。"
+    />
+    <link rel="preload" as="image" href="assets/maple/tree-autumn.jpg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <h1 class="site-title">枫树四季</h1>
+      <nav class="controls" aria-label="季节与展示控制">
+        <label class="control">
+          <span>季节预览：</span>
+          <select id="seasonSelect" aria-label="选择季节">
+            <option value="auto">自动（按当前月份）</option>
+            <option value="spring">春</option>
+            <option value="summer">夏</option>
+            <option value="autumn" selected>秋</option>
+            <option value="winter">冬</option>
+          </select>
+        </label>
+        <label class="control">
+          <input id="toggleLeaves" type="checkbox" checked />
+          <span>显示飘叶</span>
+        </label>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="hero" role="img" aria-label="枫树背景">
+        <div class="overlay"></div>
+        <div class="badge" id="seasonBadge" aria-live="polite">秋</div>
+        <div class="caption">
+          <h2 id="seasonTitle">秋色正浓</h2>
+          <p id="seasonDesc">
+            天高气爽，枫叶似火，微风拂过，叶片随风翻飞。
+          </p>
+        </div>
+        <canvas id="leafCanvas" aria-hidden="true"></canvas>
+      </section>
+
+      <section class="info">
+        <h3>交互提示</h3>
+        <ul>
+          <li>点击或触摸背景可触发一阵“风”。</li>
+          <li>在下拉框中可手动切换季节预览。</li>
+          <li>如未放置图片，页面仍可加载，但请替换 assets 目录下的示例文件名。</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <small>
+        提示：即便非商业用途，也应使用可合法再利用的图片（如公共领域或允许的许可）。你可参考附带的
+        <a href="./IMAGES-GUIDE.md">IMAGES-GUIDE.md</a> 获取图片来源与命名建议。
+      </small>
+    </footer>
+
+    <noscript>
+      请启用 JavaScript 以查看飘落叶子效果与季节切换。
+    </noscript>
+
+    <script type="module" src="main.js"></script>
+  </body>
+</html>

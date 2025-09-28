@@ -1,0 +1,184 @@
+:root {
+  --bg-overlay: rgba(0, 0, 0, 0.25);
+  --text-on-image: #fff;
+  --accent: #d35400; /* 默认秋季橙色 */
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  background: #0b0d10;
+  color: #1d1f20;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: saturate(1.2) blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.site-title {
+  font-size: 18px;
+  margin: 0;
+}
+
+.controls {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.control {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 14px;
+}
+
+select,
+input[type="checkbox"] {
+  accent-color: var(--accent);
+}
+
+.hero {
+  position: relative;
+  height: 100svh;
+  min-height: 520px;
+  background-color: #111;
+  background-image: url("assets/maple/tree-autumn.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+  color: var(--text-on-image);
+  isolation: isolate;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+      1200px 600px at 80% 0%,
+      transparent,
+      transparent 40%,
+      var(--bg-overlay) 75%,
+      rgba(0, 0, 0, 0.5) 100%
+    ),
+    linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent 50%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.badge {
+  position: absolute;
+  z-index: 2;
+  top: 16px;
+  left: 16px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 80%, #000 20%);
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  font-size: 12px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.caption {
+  position: absolute;
+  z-index: 2;
+  left: 5vw;
+  bottom: clamp(24px, 6vh, 64px);
+  max-width: min(680px, 90vw);
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
+}
+
+.caption h2 {
+  margin: 0 0 8px 0;
+  font-size: clamp(28px, 4.8vw, 54px);
+  line-height: 1.1;
+}
+
+.caption p {
+  margin: 0;
+  font-size: clamp(14px, 1.8vw, 18px);
+  opacity: 0.95;
+}
+
+#leafCanvas {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.info {
+  padding: 28px 16px 40px;
+  color: #2b2f33;
+  background: #f7f9fb;
+  border-top: 1px solid #e7edf3;
+}
+
+.info h3 {
+  margin-top: 0;
+  color: #111;
+}
+
+.site-footer {
+  padding: 16px;
+  color: #6b7280;
+  background: #0b0d10;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* 深色标题在图片上 */
+.site-header,
+.site-title {
+  color: #111;
+}
+
+/* 适配刘海与安全区域 */
+@supports (padding: env(safe-area-inset-top)) {
+  .site-header {
+    padding-top: calc(10px + env(safe-area-inset-top));
+  }
+}
+
+/* 小屏优化 */
+@media (max-width: 480px) {
+  .controls {
+    gap: 8px;
+  }
+  .control {
+    font-size: 13px;
+  }
+}
