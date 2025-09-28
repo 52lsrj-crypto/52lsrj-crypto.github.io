@@ -1,0 +1,50 @@
+name: Image Optimize (assets/)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - "assets/**"
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Squoosh CLI
+        run: npm i -g @squoosh/cli
+
+      - name: Optimize JPGs (mozjpeg)
+        shell: bash
+        run: |
+          shopt -s globstar nullglob
+          for f in assets/**/*.{jpg,jpeg,JPG,JPEG}; do
+            [ -f "$f" ] || continue
+            squoosh-cli --mozjpeg auto "$f" -d "$(dirname "$f")" --suffix ""
+          done
+
+      - name: Optimize PNGs (oxipng)
+        shell: bash
+        run: |
+          shopt -s globstar nullglob
+          for f in assets/**/*.png assets/**/*.PNG; do
+            [ -f "$f" ] || continue
+            squoosh-cli --oxipng level=2 "$f" -d "$(dirname "$f")" --suffix ""
+          done
+
+      - name: Commit optimized images
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(images): optimize images in assets/"
+          branch: ${{ github.ref_name }}
